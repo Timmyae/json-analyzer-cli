@@ -1,0 +1,22 @@
+{
+  "project": "JSON Analyzer CLI Test",
+  "version": "1.0",
+  "features": [
+    "analysis",
+    "validation",
+    "duplicate detection",
+    "pretty print"
+  ],
+  "test_data": {
+    "items": [1, 2, 2, 3, 3, 3],
+    "duplicates_expected": true,
+    "nested": {
+      "level": 2,
+      "description": "Testing deep structure analysis"
+    }
+  },
+  "metadata": {
+    "created": "2025-10-27",
+    "purpose": "Testing JSON Analyzer functionality from GitHub UI"
+  }
+}
