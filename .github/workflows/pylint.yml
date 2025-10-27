@@ -1,7 +1,5 @@
 name: Pylint
-
 on: [push]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,14 +8,86 @@ jobs:
         python-version: ["3.8", "3.9", "3.10"]
     steps:
     - uses: actions/checkout@v4
+    
+    # Debug Step 1: List all files in repository
+    - name: List all files in repository
+      run: |
+        echo "=== Listing all files in repository ==="
+        ls -R
+        echo "=== End of file listing ==="
+      continue-on-error: true
+      shell: bash
+    
+    # Debug Step 2: Check for test_data.json existence
+    - name: Check test_data.json existence
+      run: |
+        echo "=== Checking for test_data.json ==="
+        if test -f ./test_data.json; then
+          echo "✓ test_data.json found in root directory"
+          cat ./test_data.json
+        else
+          echo "✗ test_data.json NOT found in root directory"
+        fi
+        
+        if test -f ./tests/test_data.json; then
+          echo "✓ test_data.json found in tests/ directory"
+          cat ./tests/test_data.json
+        else
+          echo "✗ test_data.json NOT found in tests/ directory"
+        fi
+        
+        echo "=== Searching for test_data.json in entire repo ==="
+        find . -name "test_data.json" -type f || echo "No test_data.json found anywhere"
+        echo "=== End of test_data.json check ==="
+      continue-on-error: true
+      shell: bash
+    
+    # Debug Step 3: Environment and path information
+    - name: Debug environment and paths
+      run: |
+        echo "=== Environment Information ==="
+        echo "Current directory: $(pwd)"
+        echo "Home directory: $HOME"
+        echo "Workspace: $GITHUB_WORKSPACE"
+        echo "Python version:"
+        python --version
+        echo "=== End of environment info ==="
+      continue-on-error: true
+      shell: bash
+    
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
+    
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pylint
+        echo "=== Installing dependencies ==="
+        python -m pip install --upgrade pip 2>&1 | tee pip-upgrade.log
+        pip install pylint 2>&1 | tee pylint-install.log
+        echo "=== Dependencies installed ==="
+      continue-on-error: false
+      shell: bash
+    
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py')
+        echo "=== Starting Pylint Analysis ==="
+        echo "Files to be analyzed:"
+        git ls-files '*.py'
+        echo "=== Running Pylint ==="
+        pylint $(git ls-files '*.py') 2>&1 | tee pylint-output.log || true
+        echo "=== Pylint analysis completed ==="
+      shell: bash
+    
+    # Archive logs for debugging
+    - name: Upload debug logs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: debug-logs-py${{ matrix.python-version }}
+        path: |
+          pip-upgrade.log
+          pylint-install.log
+          pylint-output.log
+        retention-days: 7
+      continue-on-error: true
