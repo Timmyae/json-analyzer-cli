@@ -82,7 +82,7 @@ jobs:
     # Archive logs for debugging
     - name: Upload debug logs
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: debug-logs-py${{ matrix.python-version }}
         path: |
