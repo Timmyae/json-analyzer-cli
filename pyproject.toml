@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "json-analyzer-cli"
+version = "0.1.0"
+description = "CLI tool for JSON analysis, validation, and duplicate detection"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [{ name = "Timmyae" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "pylint>=3.0",
+]
+
+[project.scripts]
+json-analyzer = "json_analyzer:main"
+
+[tool.setuptools]
+py-modules = ["json_analyzer"]
+
+[tool.pytest.ini_options]
+python_files = ["test_*.py"]
+addopts = "-q"
