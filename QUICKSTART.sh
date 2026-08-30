@@ -12,7 +12,7 @@ echo ""
 # ✅ الخطوة 1: التحقق من Python
 echo "🔍 جاري التحقق من وجود Python..."
 if ! command -v python3 &> /dev/null; then
-    echo "❌ Python غير مثبت! يرجى تثبيت Python 3.7+ أولاً"
+    echo "❌ Python غير مثبت! يرجى تثبيت Python 3.8+ أولاً"
     echo "   تحميل من: https://www.python.org/downloads/"
     exit 1
 fi
