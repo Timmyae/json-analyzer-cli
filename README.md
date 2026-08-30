@@ -25,27 +25,34 @@ Advanced CLI tool for JSON file analysis, validation, and manipulation with deep
 git clone https://github.com/Timmyae/json-analyzer-cli.git
 cd json-analyzer-cli
 
-# Make executable
-chmod +x json_analyzer.py
+# Install in editable mode (recommended for development)
+python3 -m pip install -e ".[dev]"
 ```
 
 ### Basic Usage
 
 ```bash
 # Analyze JSON file
-./json_analyzer.py data.json --analyze
+json-analyzer data.json --analyze
 
 # Pretty print
-./json_analyzer.py config.json --pretty
+json-analyzer config.json --pretty
 
 # Validate schema
-./json_analyzer.py api_config.json --validate "api_key,endpoint,version"
+json-analyzer api_config.json --validate "api_key,endpoint,version"
 
 # Find duplicates
-./json_analyzer.py large_data.json --duplicates
+json-analyzer large_data.json --duplicates
 
 # Combine multiple operations
-./json_analyzer.py file.json -a -p -d
+json-analyzer file.json -a -p -d
+```
+
+### One-command local demo
+
+```bash
+chmod +x QUICKSTART.sh
+./QUICKSTART.sh
 ```
 
 ## 📖 Command Reference
@@ -110,13 +117,33 @@ Found: api_key, version, endpoint
 - **Debug Complex JSON** - Analyze deeply nested structures
 - **Pre-deployment Validation** - Verify config files before production
 
-## 🧪 Testing
+## 🧪 Development & Testing
+
+### Run tests
+
+```bash
+pytest
+```
+
+### Run lint
+
+```bash
+pylint $(git ls-files '*.py')
+```
+
+### Run without installation
+
+```bash
+python3 json_analyzer.py test_data.json --analyze
+```
+
+### Quick duplicate-check example
 
 Create a test JSON file:
 
 ```bash
 echo '{"name": "Test", "items": [1, 2, 2, 3]}' > test.json
-./json_analyzer.py test.json --duplicates
+json-analyzer test.json --duplicates
 ```
 
 Expected output:

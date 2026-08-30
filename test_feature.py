@@ -3,8 +3,7 @@
 
 def test_function():
     """Test function to verify file creation"""
-    print('File creation test successful')
-    return True
+    assert True
 
 if __name__ == '__main__':
     test_function()
