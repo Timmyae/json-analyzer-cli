@@ -2,7 +2,7 @@
 # This is a test file to demonstrate creating new files
 
 def test_function():
-    """Test function to verify file creation"""
+    """Trivial smoke test."""
     assert True
 
 if __name__ == '__main__':
