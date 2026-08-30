@@ -1,6 +1,6 @@
 # 🔧 JSON Analyzer CLI
 
-![Python](https://img.shields.io/badge/python-3.7+-blue.svg)
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Status](https://img.shields.io/badge/status-production--ready-brightgreen.svg)
 
@@ -154,7 +154,7 @@ Expected output:
 
 ## 🛠️ Requirements
 
-- Python 3.7 or higher
+- Python 3.8 or higher
 - No external dependencies (uses only standard library)
 
 ## 📝 License
